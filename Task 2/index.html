@@ -1,9 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Infinite Scroll Product Listing</title>
-</head>
-<body>
-
-</body>
+	<head>
+		<title>Infinite Scroll Product Listing</title>
+		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+		<script type="text/javascript" src="libs/angular.min.js"></script>
+		<script type="text/javascript" src="libs/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="app/data/menu.js"></script>
+		<script type="text/javascript" src="app/model.js"></script>
+	</head>
+	<body ng-app="Myapp">
+		<div class="l-header">
+			<div class="container">
+				<div class="menu">
+					<ul class="menu_list" ng-controller="GetMenu">
+						<li class="menu_item" ng-repeat="menu in menus"><a href="{{menu.url}}">{{menu.name}}</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
