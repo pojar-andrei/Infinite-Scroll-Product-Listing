@@ -13,7 +13,7 @@ body{
 }
 
 .container{
-	width: 900px;
+	width: 1000px;
     height: 100%;
     margin: 0px auto;
 }
@@ -45,4 +45,70 @@ body{
 
 .menu_item > a{
 	text-decoration: none;
+}
+
+.backgroud-light{
+    background-color: #FAF0E6;
+}
+
+.l-infinitApp{
+    padding: 20px;
+}
+
+.gallery{
+    display: inline-block;
+    width: 70%;
+}
+
+.gallery_item{
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    width: 18%;
+    padding: 8px;
+    border: 3px solid black;
+    border-radius: 15px;
+}
+
+.gallery .gallery_item:nth-child(4n+0){
+    margin-right: 0px;
+}
+
+.gallery_item > img{
+    width: 100%;
+}
+
+.gallery_item > h3{
+    margin: 0px;
+    padding: 5px 0px;
+    text-align: right;
+}
+
+.gallery_item > p{
+    display: inline-block;
+    width: 40px;
+    margin: 0px;
+    padding: 0px;
+    font-size: 12px;
+}
+
+.gallery_item > div{
+    display: inline-block;
+    width: 80px;
+    border: 2px solid black;
+    font-size: 10px;
+    text-align: center;
+}
+
+.fnc{
+    display: inline-block;
+    width: 28%;
+}
+
+.fnc_filter{
+
+}
+
+.fnc_addCart{
+
 }
