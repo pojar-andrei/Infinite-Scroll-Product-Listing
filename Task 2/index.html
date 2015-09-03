@@ -12,7 +12,7 @@
 		<div class="l-header">
 			<div class="container">
 				<div class="menu">
-					<ul class="menu_list" ng-controller="GetMenu">
+					<ul class="menu_list" ng-controller="getMenu">
 						<li class="menu_item" ng-repeat="menu in menus"><a href="{{menu.url}}">{{menu.name}}</a></li>
 					</ul>
 				</div>
@@ -22,45 +22,15 @@
 		<div class="backgroud-light">
 			<div class="container">
 				<div class="l-infinitApp">
-					<div class="gallery">
-						<div class="gallery_item">
-							<img src="http://placehold.it/100x100">
-							<h3>Name</h3>
-							<p>xxxxxx$</p>
-							<div class="addProduct">
-								Add to Cart
-							</div>
-						</div>
-						<div class="gallery_item">
-							<img src="http://placehold.it/100x100">
-							<h3>Name</h3>
-							<p>xxxxxx$</p>
-							<div class="addProduct">
-								Add to Cart
-							</div>
-						</div>
-						<div class="gallery_item">
-							<img src="http://placehold.it/100x100">
-							<h3>Name</h3>
-							<p>xxxxxx$</p>
-							<div class="addProduct">
-								Add to Cart
-							</div>
-						</div>
-						<div class="gallery_item">
-							<img src="http://placehold.it/100x100">
-							<h3>Name</h3>
-							<p>xxxxxx$</p>
-							<div class="addProduct">
-								Add to Cart
-							</div>
-						</div>
-						<div class="gallery_item">
-							<img src="http://placehold.it/100x100">
-							<h3>Name</h3>
-							<p>xxxxxx$</p>
-							<div class="addProduct">
-								Add to Cart
+					<div class="gallery" ng-controller="getProducts">
+						<div class="gallery_item" ng-repeat="product in products">
+							<img src="{{product.img_url}}">
+							<h3>{{product.title}}</h3>
+							<div >
+								<p>{{product.price}}$</p>
+								<div class="addProduct">
+									Add to Cart
+								</div>
 							</div>
 						</div>
 					</div>
