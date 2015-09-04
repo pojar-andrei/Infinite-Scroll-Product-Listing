@@ -3,8 +3,11 @@
 	<head>
 		<title>Infinite Scroll Product Listing</title>
 		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+		<script type="text/javascript" src="libs/angular.js"></script>		
 		<script type="text/javascript" src="libs/angular.min.js"></script>
-		<script type="text/javascript" src="libs/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="libs/angular-route.js"></script>
+		<script type="text/javascript" src="libs/angular-route.min.js"></script>	
+		<script type="text/javascript" src="libs/jquery-2.1.4.min.js"></script>	
 		<script type="text/javascript" src="app/data/menu.js"></script>
 		<script type="text/javascript" src="app/model.js"></script>
 	</head>
@@ -22,7 +25,7 @@
 		<div class="backgroud-light">
 			<div class="container">
 				<div class="l-infinitApp">
-					<div class="gallery" ng-controller="getProducts">
+					<div class="gallery" ng-controller="gallery">
 						<div class="gallery_item" ng-repeat="product in products">
 							<img src="{{product.img_url}}">
 							<h3>{{product.title}}</h3>
@@ -36,10 +39,29 @@
 					</div>
 					<div class="fnc">
 						<div class="fnc_filter">
-						
+							<h3>Filter</h3>
+							<div class="drop-list" ng-controller="getCategorys">
+								<p class="drop-list_title">Category : </p>
+								<select  ng-model="myselect" ng-options="o as o for o in categorys" ng-change="cuurrProducts()">  
+								</select>
+							</div>
+							<div class="range">
+								<p> Price Range: </p>
+								<form method="post" action="demoform.asp">
+							      	<div data-role="rangeslider" class="range_slider">
+								        <input type="range" name="price-min" id="price-min" class="range_dimension" value="200" min="0" max="1000">
+							        	<input type="range" name="price-max" id="price-max" class="range_dimension" value="800" min="0" max="1000">
+							      	</div>				
+							    </form>
+							</div>
 						</div>
 						<div class="fnc_addCart">
-						
+							<h3>Add Cart</h3>
+							<div class="product-item">
+								<p class="product-item_title">Muci</p>
+								<p class="product-item_amount">x2</p>
+								<p class="product-item_price">40$</p>
+							</div>
 						</div>
 					</div>
 				</div>

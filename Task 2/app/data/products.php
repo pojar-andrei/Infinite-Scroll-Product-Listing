@@ -1,14 +1,5 @@
 <?php
-/**
- * Export to PHP Array plugin for PHPMyAdmin
- * @version 0.2b
- */
 
-//
-// Database `task2`
-//
-
-// `task2`.`products`
 $products = array(
   array('title' => '3D-Kill Tv','price' => '300','img_url' => 'assets/img/3D-Kill-Tv.jpg','category' => 'tv'),
   array('title' => 'Bad Father','price' => '50','img_url' => 'assets/img/Bad Father watch.jpg','category' => 'watch'),
@@ -20,11 +11,11 @@ $products = array(
   array('title' => 'Bob Marley Headset','price' => '67','img_url' => 'assets/img/Bob Marley Headset.jpg','category' => 'headset'),
   array('title' => 'Broken Phone','price' => '30','img_url' => 'assets/img/Broken Phone.jpg','category' => 'phone'),
   array('title' => 'Cocolino cigarette','price' => '100','img_url' => 'assets/img/Cocolino cigarette.jpg','category' => 'cigarette'),
-  array('title' => 'Cold Air','price' => '250','img_url' => 'assets/img/Cold Air.jpg','category' => 'air-conditioner'),
+  array('title' => 'Cold Air','price' => '250','img_url' => 'assets/img/Cold Air.jpg','category' => 'air_conditioner'),
   array('title' => 'Coolest Headset','price' => '120','img_url' => 'assets/img/Coolest Headset.png','category' => 'headset'),
   array('title' => 'Cover Iphone 5','price' => '10','img_url' => 'assets/img/Cover Iphone 5.jpg','category' => 'cover'),
   array('title' => 'Death_Smoke Cigarette','price' => '120','img_url' => 'assets/img/Death_Smoke Cigarette.jpg','category' => 'cigarette'),
-  array('title' => 'Dell NoteBook','price' => '560','img_url' => 'assets/img/Dell NoteBook.jpg','category' => 'noteBook'),
+  array('title' => 'Dell NoteBook','price' => '560','img_url' => 'assets/img/Dell NoteBook.jpg','category' => 'notebook'),
   array('title' => 'Dog purse','price' => '60','img_url' => 'assets/img/Dog purse.jpg','category' => 'notebook'),
   array('title' => 'Dual Phone For You','price' => '342','img_url' => 'assets/img/Dual Phone For You.jpg','category' => 'phone'),
   array('title' => 'Fast and Furios Watch','price' => '250','img_url' => 'assets/img/Fast and Furios Watch.jpg','category' => 'watch'),
