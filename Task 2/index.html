@@ -42,8 +42,10 @@
 							<h3>Filter</h3>
 							<div class="drop-list" ng-controller="getCategorys">
 								<p class="drop-list_title">Category : </p>
-								<select  ng-model="myselect" ng-options="o as o for o in categorys" ng-change="cuurrProducts()">  
+								<select >  
+									<option <li ng-repeat="category in categorys" ng-model="firstSelect" ng-change="onChange(category)" >{{category}}</option>
 								</select>
+								<p>{{firstSelect}}</p>
 							</div>
 							<div class="range">
 								<p> Price Range: </p>
