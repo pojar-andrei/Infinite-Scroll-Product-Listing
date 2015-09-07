@@ -107,6 +107,11 @@ body{
     border: 2px solid black;
     font-size: 10px;
     text-align: center;
+    cursor: pointer;
+}
+
+.gallery_item div > div:hover{
+    background-color: #CCA300;
 }
 
 .fnc{
@@ -183,4 +188,16 @@ body{
     margin-top: 0px;
     margin-left: 45px;
     vertical-align: top;
-}   
+}  
+
+.fnc_addCart_buy{
+    width: 78px;
+    text-align: center;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.fnc_addCart_buy:hover{
+    background-color: #CCA300;
+} 

@@ -11,7 +11,6 @@ $query = "SELECT * FROM `products` LIMIT 0 , 20";
 
 $comments = mysqli_query($con,$query);
 
-//echo "[";
 $products = array();
 
 while($row = mysqli_fetch_array($comments, MYSQL_ASSOC))

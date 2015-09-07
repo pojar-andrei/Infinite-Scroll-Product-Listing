@@ -31,7 +31,7 @@
 							<h3>{{product.title}}</h3>
 							<div >
 								<p>{{product.price}}$</p>
-								<div class="addProduct">
+								<div class="addProduct" ng-click="productAdd(product)">
 									Add to Cart
 								</div>
 							</div>
@@ -43,9 +43,9 @@
 							<div class="drop-list" ng-controller="getCategorys">
 								<p class="drop-list_title">Category : </p>
 								<select >  
-									<option <li ng-repeat="category in categorys" ng-model="firstSelect" ng-change="onChange(category)" >{{category}}</option>
+									<option <li ng-repeat="category in categorys" ng-model="category" ng-change="onChange(category)" >{{category}}</option>
 								</select>
-								<p>{{firstSelect}}</p>
+								<p>{{firstSelect+"   "+categorySelect}}</p>
 							</div>
 							<div class="range">
 								<p> Price Range: </p>
@@ -57,12 +57,19 @@
 							    </form>
 							</div>
 						</div>
-						<div class="fnc_addCart">
+						<div class="fnc_addCart" ng-controller="AddCart">
 							<h3>Add Cart</h3>
-							<div class="product-item">
-								<p class="product-item_title">Muci</p>
-								<p class="product-item_amount">x2</p>
-								<p class="product-item_price">40$</p>
+							<div class="product-item" ng-repeat="addCartProduct in addCartProducts">
+								<p class="product-item_title">{{addCartProduct.title}}</p>
+								<p class="product-item_amount">x{{addCartProduct.amount}}</p>
+								<p class="product-item_price">{{addCartProduct.price}}</p>
+							</div>
+							<hr>
+							<div>
+								<p>Total : {{totalPrice}}</p>
+							</div>
+							<div class="fnc_addCart_buy" ng-click="buyProducts()">
+								Buy
 							</div>
 						</div>
 					</div>
