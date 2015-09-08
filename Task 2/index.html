@@ -53,8 +53,6 @@
 							</div>
 							<div class="range" ng-controller="rangeCtrl">
 								<p> Price Range:</p>
-								<p>Lower Value: {{lowerValue}}</p>
-								<p>Value 2: {{upperValue}}</p>
 								<div range-slider
 								     floor="0"
 								     ceiling="1000"
@@ -67,8 +65,9 @@
 							<h3>Add Cart</h3>
 							<div class="product-item" ng-repeat="addCartProduct in addCartProducts">
 								<p class="product-item_title">{{addCartProduct.title}}</p>
-								<p class="product-item_amount">x{{addCartProduct.amount}}</p>
+								<p class="product-item_amount">x {{addCartProduct.amount}}</p>
 								<p class="product-item_price">{{addCartProduct.price}}</p>
+								<img class="product-item_close" ng-click="deleteProduct(addCartProduct)" src="assets/img/delete.png">
 							</div>
 							<hr>
 							<div>

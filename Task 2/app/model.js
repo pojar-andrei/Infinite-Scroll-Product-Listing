@@ -103,12 +103,20 @@
 	});
 
 	app.controller('AddCart',function($scope,$http,addCart){
+
 		$scope.addCartProducts = addCart.getAddCart();
 		$scope.totalPrice = addCart.getTotalPrice();
+
 		$scope.$on("addProduct", function (event, args) {
 			addCart.setAddCart( args );
 			$scope.totalPrice = addCart.getTotalPrice();
 		});
+
+		$scope.deleteProduct = function ( data ){
+			addCart.deleteCartItem( data );
+			$scope.addCartProducts = addCart.getAddCart();
+			$scope.totalPrice = addCart.getTotalPrice();
+		};
 
 		$scope.buyProducts = function(){
             $scope.errors = [];
@@ -135,6 +143,7 @@
                 $scope.errors.push(status);
             });
 		};
+
 	});
 
 	app.service('products',function($http){
@@ -228,6 +237,10 @@
 			return addCart.products;
 		}
 
+		addCart.deleteCartItem = function (data){
+			addCart.products.splice(data, 1);
+		}		
+
 		addCart.getTotalPrice = function(){
 			var totalPrice = 0;
 			angular.forEach(addCart.products, function(product, key) {
@@ -259,7 +272,7 @@
 			if(angular.isNumber(minPrice) && angular.isNumber(maxPrice) ){
 				angular.forEach(items,function(product){
 					debugger
-					if(minPrice < product.price && product.price < maxPrice) {
+					if(minPrice <= product.price && product.price <= maxPrice) {
 						filterPrice.items.push(product);
 					}
 				});

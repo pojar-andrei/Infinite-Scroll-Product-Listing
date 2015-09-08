@@ -186,8 +186,15 @@ body{
 .product-item_price{
     display: inline-block;
     margin-top: 0px;
-    margin-left: 45px;
+    margin-left: 35px;
     vertical-align: top;
+}
+
+.product-item_close{
+    width: 20px;
+    height: 20px;
+    vertical-align: top;
+    cursor: pointer;
 }  
 
 .fnc_addCart_buy{
