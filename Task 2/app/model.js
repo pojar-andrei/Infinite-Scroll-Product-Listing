@@ -5,45 +5,55 @@
 		$scope.menus = window.menus;
 	});
 
-	app.controller('gallery',function($log , $scope, $rootScope , products){
-		
-	   	var promise = products.firstRun();
-		
-		promise.then(
-          function(response) { 
-              $scope.products = response.data;
-          },
-          function(errorResponse) {
-              $log.error('failure loading product', errorResponse);
-          });
+	app.controller('gallery',function($log , $scope, $rootScope, products , galleryCategory){
+		var vm = $scope.vm = {};
+	   	vm.promise = products.firstRun();
+		vm.promise.then(
+	        function(response) { 
+	            vm.products = response.data;
+	            products.setproducts(vm.products);
+	            vm.products.filteredCategory = '';
+	            $rootScope.$broadcast("setCategorys",vm.products);
+	        },
+	        function(errorResponse) {
+	            $log.error('failure loading product', errorResponse);
+        });
+
+		$scope.$watch(function(){
+		    return galleryCategory.currentCategory;
+		}, function (newValue) {
+			if(newValue == 'all')
+		    	vm.products.filteredCategory = '';
+		    else
+		    	vm.products.filteredCategory = newValue;
+		});
 
 		$scope.productAdd = function (product){
 			$rootScope.$broadcast("addProduct",product);
 		}
 	});
 
-	app.controller('getCategorys',function($scope,products){
-		var promise = products.firstRun();
-		 $scope.categorys = ['all'];
-		 $scope.categorySelect = 'nimic';
+	app.controller('getCategorys',function( $scope , products , galleryCategory){
+		var vm = $scope.vm = {};
+		vm.promise = products.firstRun();
+		vm.categorys = ['all'];
 
-		promise.then(
-          function(response) { 
-              $scope.products = response.data;
-            angular.forEach($scope.products,function(product){
+		$scope.$on("setCategorys", function (event,args) {
+			vm.getCategorys();
+		});
 
-				if($scope.categorys.indexOf(product.category) == -1){
-					$scope.categorys.push(product.category);
+		vm.getCategorys = function(){
+			vm.products = products.getproducts();
+            angular.forEach(vm.products,function(product){
+				if(vm.categorys.indexOf(product.category) == -1){
+					vm.categorys.push(product.category);
 				}
 			});
-          },
-          function(errorResponse) {
-              $log.error('failure loading movie', errorResponse);
-          });
-		$scope.onChange = function(category){
-				$scope.categorySelect = category;
-				console.log(category+" and  "+$scope.categorySelect);
-			}
+		}
+
+		$scope.$watch('categorySelected', function( newValue , oldValue ) {
+				galleryCategory.setCurrentCategory(newValue);
+        });		
 	});
 
 	app.controller('AddCart',function($scope,$http,addCart){
@@ -88,11 +98,6 @@
 
 		products.getproducts = function(){
 
-			$http.get('app/data/getproducts.php')
-            	.success(function(response) {
-                	products.currentProducts = response.data;
-            });
-            products.totalProducts = products.currentProducts;
            return products.currentProducts;
 		}
 
@@ -100,11 +105,9 @@
 			products.currentProducts = data;
 		}
 
-	   	return{
-	   		firstRun : function(){
-	   			return $http.get('app/data/getproducts.php');
-	   	}
-	   }
+		products.firstRun = function(){
+			return $http.get('app/data/getproducts.php');
+		}
 	});
 
 	app.service('addCart',function($http){
@@ -138,6 +141,21 @@
 				totalPrice = totalPrice +(addCart.products[key].amount * addCart.products[key].price);
 			});
 			return totalPrice;
+		}
+	});
+
+	app.service('galleryCategory',function($http){
+		var galleryCategory = this;
+		galleryCategory.currentCategory = "";
+
+		galleryCategory.getCurrentCategory = function(){
+
+           return galleryCategory.currentCategory;
+		}
+
+		galleryCategory.setCurrentCategory = function( data ){
+			debugger
+			galleryCategory.currentCategory = data;
 		}
 	});
 })();

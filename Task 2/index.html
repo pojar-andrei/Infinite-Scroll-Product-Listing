@@ -26,7 +26,7 @@
 			<div class="container">
 				<div class="l-infinitApp">
 					<div class="gallery" ng-controller="gallery">
-						<div class="gallery_item" ng-repeat="product in products">
+						<div class="gallery_item" ng-repeat="product in vm.products | filter : vm.products.filteredCategory">
 							<img src="{{product.img_url}}">
 							<h3>{{product.title}}</h3>
 							<div >
@@ -42,10 +42,10 @@
 							<h3>Filter</h3>
 							<div class="drop-list" ng-controller="getCategorys">
 								<p class="drop-list_title">Category : </p>
-								<select >  
-									<option <li ng-repeat="category in categorys" ng-model="category" ng-change="onChange(category)" >{{category}}</option>
+								<select ng-model="categorySelected">  
+									<option value="{{category}}" ng-repeat="category in vm.categorys">{{category}}</option>
 								</select>
-								<p>{{firstSelect+"   "+categorySelect}}</p>
+								<p>{{categorySelected}}</p>
 							</div>
 							<div class="range">
 								<p> Price Range: </p>
