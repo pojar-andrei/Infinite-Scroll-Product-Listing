@@ -3,13 +3,18 @@
 	<head>
 		<title>Infinite Scroll Product Listing</title>
 		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/angular-range-slider.css">
 		<script type="text/javascript" src="libs/angular.js"></script>		
 		<script type="text/javascript" src="libs/angular.min.js"></script>
 		<script type="text/javascript" src="libs/angular-route.js"></script>
 		<script type="text/javascript" src="libs/angular-route.min.js"></script>	
-		<script type="text/javascript" src="libs/jquery-2.1.4.min.js"></script>	
+		<script type="text/javascript" src="libs/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="app/data/angular-range-slider.js"></script>	
+		<script type="text/javascript" src="app/data/angular-range-slider.min.js"></script>	
 		<script type="text/javascript" src="app/data/menu.js"></script>
 		<script type="text/javascript" src="app/model.js"></script>
+
+		
 	</head>
 	<body ng-app="Myapp">
 		<div class="l-header">
@@ -26,7 +31,7 @@
 			<div class="container">
 				<div class="l-infinitApp">
 					<div class="gallery" ng-controller="gallery">
-						<div class="gallery_item" ng-repeat="product in vm.products | filter : vm.products.filteredCategory">
+						<div class="gallery_item" ng-repeat="product in  filtredProducts = (vm.gallery | filter : vm.gallery.filteredCategory ) | filterPrice : vm.gallery.priceMin : vm.gallery.priceMax">
 							<img src="{{product.img_url}}">
 							<h3>{{product.title}}</h3>
 							<div >
@@ -45,16 +50,17 @@
 								<select ng-model="categorySelected">  
 									<option value="{{category}}" ng-repeat="category in vm.categorys">{{category}}</option>
 								</select>
-								<p>{{categorySelected}}</p>
 							</div>
-							<div class="range">
-								<p> Price Range: </p>
-								<form method="post" action="demoform.asp">
-							      	<div data-role="rangeslider" class="range_slider">
-								        <input type="range" name="price-min" id="price-min" class="range_dimension" value="200" min="0" max="1000">
-							        	<input type="range" name="price-max" id="price-max" class="range_dimension" value="800" min="0" max="1000">
-							      	</div>				
-							    </form>
+							<div class="range" ng-controller="rangeCtrl">
+								<p> Price Range:</p>
+								<p>Lower Value: {{lowerValue}}</p>
+								<p>Value 2: {{upperValue}}</p>
+								<div range-slider
+								     floor="0"
+								     ceiling="1000"
+								     ng-model-low="lowerValue"
+								     ng-model-high="upperValue">
+								</div>
 							</div>
 						</div>
 						<div class="fnc_addCart" ng-controller="AddCart">
