@@ -13,6 +13,17 @@
 		<script type="text/javascript" src="app/data/angular-range-slider.min.js"></script>	
 		<script type="text/javascript" src="app/data/menu.js"></script>
 		<script type="text/javascript" src="app/model.js"></script>
+		<script type="text/javascript" src="app/controllers/getMenu.js"></script>
+		<script type="text/javascript" src="app/controllers/galleryCtrl.js"></script>
+		<script type="text/javascript" src="app/controllers/categoryCtrl.js"></script>
+		<script type="text/javascript" src="app/controllers/rangeCtrl.js"></script>
+		<script type="text/javascript" src="app/controllers/cartCtrl.js"></script>
+		<script type="text/javascript" src="app/service/products.js"></script>
+		<script type="text/javascript" src="app/service/addCart.js"></script>
+		<script type="text/javascript" src="app/service/galleryCategory.js"></script>
+		<script type="text/javascript" src="app/filter/filterPrice.js"></script>
+		<script type="text/javascript" src="app/scrolly/filterPrice.js"></script>
+		
 
 		
 	</head>
@@ -30,7 +41,7 @@
 		<div class="backgroud-light">
 			<div class="container">
 				<div class="l-infinitApp">
-					<div class="gallery" ng-controller="gallery"  >
+					<div class="gallery" ng-controller="galleryCtrl"  >
 						<div scrolly="showMore()">
 							<div class="gallery_item" ng-repeat="product in  filtredProducts = (vm.gallery | filter : vm.gallery.filteredCategory ) | filterPrice : vm.gallery.priceMin : vm.gallery.priceMax">
 								<img src="{{product.img_url}}">
@@ -51,7 +62,7 @@
 					<div class="fnc">
 						<div class="fnc_filter">
 							<h3>Filter</h3>
-							<div class="drop-list" ng-controller="getCategorys">
+							<div class="drop-list" ng-controller="categoryCtrl">
 								<p class="drop-list_title">Category : </p>
 								<select ng-model="categorySelected">  
 									<option value="{{category}}" ng-repeat="category in vm.categorys">{{category}}</option>
@@ -67,7 +78,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="fnc_addCart" ng-controller="AddCart">
+						<div class="fnc_addCart" ng-controller="cartCtrl">
 							<h3>Add Cart</h3>
 							<div class="product-item" ng-repeat="addCartProduct in addCartProducts">
 								<p class="product-item_title">{{addCartProduct.title}}</p>
