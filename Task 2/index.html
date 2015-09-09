@@ -30,15 +30,21 @@
 		<div class="backgroud-light">
 			<div class="container">
 				<div class="l-infinitApp">
-					<div class="gallery" ng-controller="gallery">
-						<div class="gallery_item" ng-repeat="product in  filtredProducts = (vm.gallery | filter : vm.gallery.filteredCategory ) | filterPrice : vm.gallery.priceMin : vm.gallery.priceMax">
-							<img src="{{product.img_url}}">
-							<h3>{{product.title}}</h3>
-							<div >
-								<p>{{product.price}}$</p>
-								<div class="addProduct" ng-click="productAdd(product)">
-									Add to Cart
+					<div class="gallery" ng-controller="gallery"  >
+						<div scrolly="showMore()">
+							<div class="gallery_item" ng-repeat="product in  filtredProducts = (vm.gallery | filter : vm.gallery.filteredCategory ) | filterPrice : vm.gallery.priceMin : vm.gallery.priceMax">
+								<img src="{{product.img_url}}">
+								<h3>{{product.title}}</h3>
+								<div >
+									<p>{{product.price}}$</p>
+									<div class="addProduct" ng-click="productAdd(product)">
+										Add to Cart
+									</div>
 								</div>
+							</div>
+							<div class="gallery_loading" ng-hide="vm.dataLoading">
+								<p>Loding</p>
+								<img src="assets/img/loading.png">
 							</div>
 						</div>
 					</div>

@@ -9,10 +9,10 @@
 	app.controller('gallery',function($log , $scope, $rootScope, products , galleryCategory){
 		
 		var vm = $scope.vm = {};
-	   	vm.promise = products.firstRun();
-	   	
+		vm.limit = 0;
+	   	vm.promise = products.getProductsDb(vm.limit);
+	   	vm.dataLoading = false;
 
-	   	debugger
 		vm.promise.then(
 	        function(response) { 
 	            vm.gallery = response.data;
@@ -23,7 +23,7 @@
 	        function(errorResponse) {
 	            $log.error('failure loading product', errorResponse);
         });
-		debugger
+		
 		$scope.$watch(function(){
 		    return galleryCategory.currentCategory;
 		}, function (newValue) {
@@ -40,22 +40,43 @@
 		$scope.$watch(function(){
 		    return products.userPriceMin;
 		}, function (newValue) {
-			debugger
 			vm.gallery.priceMin = newValue;
 		});
 
 		$scope.$watch(function(){
 		    return products.userPriceMax;
 		}, function (newValue) {
-			debugger
 			vm.gallery.priceMax = newValue;
 		});
 
+		$scope.showMore = function (){
+			vm.limit += 20;
+			vm.promise = products.getProductsDb(vm.limit);
+			
+			vm.promise.then(
+		        function(response) {
+		        	vm.dataLoading = false;
+		        	if(response.data.length != 0){
+		        		vm.dataLoading = true;      		
+		        		vm.gallery.push.apply(vm.gallery,response.data);			
+			           	vm.gallery.filteredCategory = '';
+			            $rootScope.$broadcast("setCategorys",vm.gallery);
+			        }else{
+
+			        	vm.dataLoading = true; 
+			        }
+		        },
+		        function(errorResponse) {
+		          $log.error('failure loading product', errorResponse);
+
+		        products.setproducts(vm.gallery);
+	        });
+
+		};
 	});
 
 	app.controller('getCategorys',function( $scope , products , galleryCategory){
 		var vm = $scope.vm = {};
-		vm.promise = products.firstRun();
 		vm.categorys = ['all'];
 
 		$scope.$on("setCategorys", function (event,args) {
@@ -142,13 +163,15 @@
             }).error(function(data, status) { 
                 $scope.errors.push(status);
             });
+            addCart.flushAddCart();
+            $scope.addCartProducts = addCart.getAddCart();
+            $scope.totalPrice = addCart.getTotalPrice();
 		};
 
 	});
 
 	app.service('products',function($http){
 		var products = this;
-		products.totalProducts = [];
 		products.currentProducts = [];
 		products.priceMinMax = {
 			min: 0,
@@ -167,8 +190,8 @@
 			products.setPriceMinMax(products.currentProducts);
 		}
 
-		products.firstRun = function(){
-			return $http.get('app/data/getproducts.php');
+		products.getProductsDb = function( limit ){
+			 return $http({method:'GET', url:'app/data/getproducts.php', params:{data: limit}});
 		}
 
 		products.getPriceMinMax = function(){
@@ -194,19 +217,16 @@
 				products.price.max = 0;
 				products.price.min = 0;
 			}
-			debugger
 			products.priceMinMax = products.price;
 			products.setUserPriceMin(products.priceMinMax.min);
 			products.setUserPriceMax(products.priceMinMax.max);
 		}
 
 		products.setUserPriceMin = function( data ){
-			debugger
 			return products.userPriceMin = data;
 		}
 
 		products.setUserPriceMax = function( data ){
-			debugger
 			return products.userPriceMax = data;
 		}
 
@@ -248,6 +268,10 @@
 			});
 			return totalPrice;
 		}
+
+		addCart.flushAddCart = function(){
+			return addCart.products = [];
+		}
 	});
 
 	app.service('galleryCategory',function($http){
@@ -268,18 +292,34 @@
 		var filterPrice = this;
 		return function ( items , minPrice , maxPrice ){
 			filterPrice.items = [];
-			debugger
 			if(angular.isNumber(minPrice) && angular.isNumber(maxPrice) ){
 				angular.forEach(items,function(product){
-					debugger
 					if(minPrice <= product.price && product.price <= maxPrice) {
 						filterPrice.items.push(product);
 					}
 				});
-
 				return filterPrice.items;
 			}
 		}
+	});
+
+	app.directive('scrolly', function () {
+	    return {
+	        restrict: 'A',
+	        link: function (scope, element, attrs) {
+	            var raw = element[0];
+	            console.log('loading directive');
+	            element.bind('scroll', function () {
+	                console.log('in scroll');
+	                console.log(raw.scrollTop + raw.offsetHeight);
+	                console.log(raw.scrollHeight);
+	                if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+	                    console.log("I am at the bottom");
+	                    scope.$apply(attrs.scrolly);
+	                }
+	            });
+	        }
+	    };
 	});
 
 })();

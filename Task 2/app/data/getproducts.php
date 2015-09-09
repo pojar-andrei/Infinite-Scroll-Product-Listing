@@ -1,5 +1,7 @@
 <?php
 
+$limit = $_GET["data"];
+
 $con = mysqli_connect('localhost','root','','task2');
  
 if (!$con)
@@ -7,7 +9,7 @@ if (!$con)
   die('Could not connect: ' . mysql_error());
 }
  
-$query = "SELECT * FROM `products` LIMIT 0 , 20";
+$query = "SELECT * FROM `products` LIMIT ".$limit.", 20 ;";
 
 $comments = mysqli_query($con,$query);
 
