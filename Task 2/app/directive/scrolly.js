@@ -3,9 +3,9 @@
 	
 	angular
 	    .module('Myapp')
-	    .directive('filterPrice', filterPrice)
+	    .directive('scrolly', scrolly)
 
-	    function filterPrice(){
+	    function scrolly(){
 	    	return {
 		        restrict: 'A',
 		        link: function (scope, element, attrs) {

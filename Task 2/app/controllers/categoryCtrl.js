@@ -5,7 +5,7 @@
 	    .module('Myapp')
 	    .controller('categoryCtrl', categoryCtrl)
 
-	    function categoryCtrl ( $scope , products , galleryCategory ) {
+	    function categoryCtrl ( $scope , products , categoryService ) {
 			var vm = $scope.vm = {};
 			vm.categorys = ['all'];
 
@@ -23,7 +23,7 @@
 			}
 
 			$scope.$watch('categorySelected', function( newValue , oldValue ) {
-					galleryCategory.setCurrentCategory(newValue);
+					categoryService.setCurrentCategory(newValue);
 	        });
 		};
 })();

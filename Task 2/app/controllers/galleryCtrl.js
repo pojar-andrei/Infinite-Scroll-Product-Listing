@@ -5,7 +5,7 @@
 	    .module('Myapp')
 	    .controller('galleryCtrl', galleryCtrl)
 
-	    function galleryCtrl ( $log , $scope, $rootScope, products , galleryCategory ) {
+	    function galleryCtrl ( $log , $scope, $rootScope, products , categoryService ) {
 			var vm = $scope.vm = {};
 			vm.limit = 0;
 		   	vm.promise = products.getProductsDb(vm.limit);
@@ -23,7 +23,7 @@
 	        });
 			
 			$scope.$watch(function(){
-			    return galleryCategory.currentCategory;
+			    return categoryService.currentCategory;
 			}, function (newValue) {
 				if(newValue == 'all')
 			    	vm.gallery.filteredCategory = '';

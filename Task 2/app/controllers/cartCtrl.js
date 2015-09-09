@@ -5,19 +5,19 @@
 	    .module('Myapp')
 	    .controller('cartCtrl', cartCtrl)
 
-	    function cartCtrl ( $scope , $http , addCart ) {
-			$scope.addCartProducts = addCart.getAddCart();
-			$scope.totalPrice = addCart.getTotalPrice();
+	    function cartCtrl ( $scope , $http , cartProducts ) {
+			$scope.addCartProducts = cartProducts.getAddCart();
+			$scope.totalPrice = cartProducts.getTotalPrice();
 
 			$scope.$on("addProduct", function (event, args) {
-				addCart.setAddCart( args );
-				$scope.totalPrice = addCart.getTotalPrice();
+				cartProducts.setAddCart( args );
+				$scope.totalPrice = cartProducts.getTotalPrice();
 			});
 
 			$scope.deleteProduct = function ( data ){
-				addCart.deleteCartItem( data );
-				$scope.addCartProducts = addCart.getAddCart();
-				$scope.totalPrice = addCart.getTotalPrice();
+				cartProducts.deleteCartItem( data );
+				$scope.addCartProducts = cartProducts.getAddCart();
+				$scope.totalPrice = cartProducts.getTotalPrice();
 			};
 
 			$scope.buyProducts = function(){
@@ -44,9 +44,9 @@
 	            }).error(function(data, status) { 
 	                $scope.errors.push(status);
 	            });
-	            addCart.flushAddCart();
-	            $scope.addCartProducts = addCart.getAddCart();
-	            $scope.totalPrice = addCart.getTotalPrice();
+	            cartProducts.flushAddCart();
+	            $scope.addCartProducts = cartProducts.getAddCart();
+	            $scope.totalPrice = cartProducts.getTotalPrice();
 			};
 		};
 })();
