@@ -7,7 +7,7 @@
 
 	    function categoryCtrl ( $scope , products , categoryService ) {
 			var vm = $scope.vm = {};
-			vm.categorys = [''];
+			vm.categorys = ['all'];
 
 			$scope.$on("setCategorys", function (event,args) {
 				vm.getCategorys();
@@ -24,7 +24,6 @@
 
 			$scope.$watch('categorySelected', function( newValue , oldValue ) {
 					categoryService.setCurrentCategory(newValue);
-					debugger
 	        });
 		};
 })();

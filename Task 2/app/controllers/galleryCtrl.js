@@ -11,13 +11,12 @@
 		   	vm.promise = products.getProductsDb(vm.limit);
 		   	vm.dataLoading = false;
 		   	vm.gallery = [];
-		   	
+		   	vm.gallery.filteredCategory = '';		   	
 
 			vm.promise.then(
 		        function(response) { 
 		            vm.gallery = response.data;
 		            products.setproducts(vm.gallery);
-		            vm.gallery.filteredCategory = '';
 		            $rootScope.$broadcast("setCategorys",vm.gallery);
 		        },
 		        function(errorResponse) {
@@ -27,16 +26,19 @@
 			$scope.$watch(function(){
 			    return categoryService.categoryCurrent;
 			}, function (newValue) {
-				debugger
-				if(newValue == 'all')
+				if(newValue == 'all'){
 			    	vm.gallery.filteredCategory = '';
-			    else
+				
+			    }else{
 			    	if (newValue) {
 			    		vm.gallery.filteredCategory = newValue;
-			    		debugger
 			    	}
+			    	else{
 			    		vm.gallery.filteredCategory = '';
-			    	
+			    	}
+			    }
+
+			    $scope.filteredCategory = vm.gallery.filteredCategory;
 			});
 
 			$scope.productAdd = function (product){
@@ -65,7 +67,6 @@
 			        	if(response.data.length != 0){
 			        		vm.dataLoading = true;      		
 			        		vm.gallery.push.apply(vm.gallery,response.data);			
-				           	vm.gallery.filteredCategory = '';
 				            $rootScope.$broadcast("setCategorys",vm.gallery);
 				        }else{
 				        	vm.dataLoading = true; 

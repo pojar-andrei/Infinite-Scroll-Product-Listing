@@ -41,7 +41,7 @@
 				<div class="l-infinitApp">
 					<div class="gallery" ng-controller="galleryCtrl"  >
 						<div scrolly="showMore()">
-							<div class="gallery_item" ng-repeat="product in  filtredProducts = (vm.gallery | filter : vm.gallery.filteredCategory ) | filterPrice : vm.gallery.priceMin : vm.gallery.priceMax">
+							<div class="gallery_item" ng-model="filteredCategory" ng-repeat=" product in ( filtredProducts = ( (vm.gallery | filter : filteredCategory ) | filterPrice : vm.gallery.priceMin : vm.gallery.priceMax ) )">
 								<img src="{{product.img_url}}">
 								<h3>{{product.title}}</h3>
 								<div >
@@ -72,10 +72,10 @@
 								    <range-main-bar floor="0" celling="1000">
 								    	<range-elastic-bar ng-model-low="{{lowerValue}}" ng-model-high="{{upperValue}}">
 							        		<range-min-circle class="circleShape">
-							        			<div class="minValue" ng-show="vm.isClickedMinCircle">{{vm.lowerValue}}</div>
+							        			<div class="minValue" ng-show="vm.isClickedMinCircle">{{vm.lowerValue | number:0}}</div>
 							        		</range-min-circle>
 								        	<range-max-circle class="circleShape">
-								        		<div class="maxValue" ng-show="vm.isClickedMaxCircle">{{vm.upperValue}}</div>
+								        		<div class="maxValue" ng-show="vm.isClickedMaxCircle">{{vm.upperValue | number:0}}</div>
 								        	</range-max-circle> 
 								    	</range-elastic-bar>
 								    </range-main-bar>
