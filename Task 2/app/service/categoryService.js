@@ -7,15 +7,15 @@
 
 	    function categoryService ( $http ) {
 	    	var categoryService = this;
-			categoryService.currentCategory = '';
+			categoryService.categoryCurrent = '';
 
 			categoryService.getCurrentCategory = function(){
 
-	           return categoryService.currentCategory;
+	           return categoryService.categoryCurrent;
 			}
 
 			categoryService.setCurrentCategory = function( data ){
-				categoryService.currentCategory = data;
+				categoryService.categoryCurrent = data;
 			}
 	    };
 })();

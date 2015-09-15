@@ -1,4 +1,4 @@
 (function(){
-	var app = angular.module("Myapp",['ngRoute','angularRangeSlider']);
+	var app = angular.module("Myapp",['ngRoute']);
 })();
 

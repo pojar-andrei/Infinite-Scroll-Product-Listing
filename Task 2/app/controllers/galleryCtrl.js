@@ -10,6 +10,8 @@
 			vm.limit = 0;
 		   	vm.promise = products.getProductsDb(vm.limit);
 		   	vm.dataLoading = false;
+		   	vm.gallery = [];
+		   	
 
 			vm.promise.then(
 		        function(response) { 
@@ -23,12 +25,18 @@
 	        });
 			
 			$scope.$watch(function(){
-			    return categoryService.currentCategory;
+			    return categoryService.categoryCurrent;
 			}, function (newValue) {
+				debugger
 				if(newValue == 'all')
 			    	vm.gallery.filteredCategory = '';
 			    else
-			    	vm.gallery.filteredCategory = newValue;
+			    	if (newValue) {
+			    		vm.gallery.filteredCategory = newValue;
+			    		debugger
+			    	}
+			    		vm.gallery.filteredCategory = '';
+			    	
 			});
 
 			$scope.productAdd = function (product){

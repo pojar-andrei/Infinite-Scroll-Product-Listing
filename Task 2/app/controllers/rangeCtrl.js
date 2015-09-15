@@ -21,11 +21,11 @@
 				$scope.maxValue = newValue.max;
 			});
 
-			$scope.$watch('lowerValue', function( newValue , oldValue ) {
+			$scope.$watch('vm.lowerValue', function( newValue , oldValue ) {
 					products.setUserPriceMin(newValue);
 	        });
 
-	        $scope.$watch('upperValue', function( newValue , oldValue ) {
+	        $scope.$watch('vm.upperValue', function( newValue , oldValue ) {
 					products.setUserPriceMax(newValue);
 	        });
 		};

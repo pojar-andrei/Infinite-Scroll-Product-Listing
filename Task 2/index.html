@@ -4,13 +4,12 @@
 		<title>Infinite Scroll Product Listing</title>
 		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/angular-range-slider.css">
+		<link rel="stylesheet" type="text/css" href="app/range_slider/range_slider.css">
 		<script type="text/javascript" src="libs/angular.js"></script>		
 		<script type="text/javascript" src="libs/angular.min.js"></script>
 		<script type="text/javascript" src="libs/angular-route.js"></script>
 		<script type="text/javascript" src="libs/angular-route.min.js"></script>	
-		<script type="text/javascript" src="libs/jquery-2.1.4.min.js"></script>
-		<script type="text/javascript" src="app/rangeSlider/angular-range-slider.js"></script>	
-		<script type="text/javascript" src="app/rangeSlider/angular-range-slider.min.js"></script>	
+		<script type="text/javascript" src="libs/jquery-2.1.4.min.js"></script>	
 		<script type="text/javascript" src="app/data/menu.js"></script>
 		<script type="text/javascript" src="app/model.js"></script>
 		<script type="text/javascript" src="app/controllers/getMenu.js"></script>
@@ -23,6 +22,7 @@
 		<script type="text/javascript" src="app/service/categoryService.js"></script>
 		<script type="text/javascript" src="app/filter/filterPrice.js"></script>
 		<script type="text/javascript" src="app/directive/scrolly.js"></script>
+		<script type="text/javascript" src="app/range_slider/range_slider.js"></script>
 		
 	</head>
 	<body ng-app="Myapp">
@@ -68,12 +68,18 @@
 							</div>
 							<div class="range" ng-controller="rangeCtrl">
 								<p> Price Range:</p>
-								<div range-slider
-								     floor="0"
-								     ceiling="1000"
-								     ng-model-low="lowerValue"
-								     ng-model-high="upperValue">
-								</div>
+								<range>
+								    <range-main-bar floor="0" celling="1000">
+								    	<range-elastic-bar ng-model-low="{{lowerValue}}" ng-model-high="{{upperValue}}">
+							        		<range-min-circle class="circleShape">
+							        			<div class="minValue" ng-show="vm.isClickedMinCircle">{{vm.lowerValue}}</div>
+							        		</range-min-circle>
+								        	<range-max-circle class="circleShape">
+								        		<div class="maxValue" ng-show="vm.isClickedMaxCircle">{{vm.upperValue}}</div>
+								        	</range-max-circle> 
+								    	</range-elastic-bar>
+								    </range-main-bar>
+								</range>
 							</div>
 						</div>
 						<div class="fnc_addCart" ng-controller="cartCtrl">
