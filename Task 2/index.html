@@ -72,10 +72,10 @@
 								    <range-main-bar floor="0" celling="1000">
 								    	<range-elastic-bar ng-model-low="{{lowerValue}}" ng-model-high="{{upperValue}}">
 							        		<range-min-circle class="circleShape">
-							        			<div class="minValue" ng-show="vm.isClickedMinCircle">{{vm.lowerValue | number:0}}</div>
+							        			<div class="minValue" ng-show="vm.isClickedMinCircle">{{vm.lowerValue | number:0 }}$</div>
 							        		</range-min-circle>
 								        	<range-max-circle class="circleShape">
-								        		<div class="maxValue" ng-show="vm.isClickedMaxCircle">{{vm.upperValue | number:0}}</div>
+								        		<div class="maxValue" ng-show="vm.isClickedMaxCircle">{{vm.upperValue | number:0 }}$</div>
 								        	</range-max-circle> 
 								    	</range-elastic-bar>
 								    </range-main-bar>

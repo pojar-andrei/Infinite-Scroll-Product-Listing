@@ -155,6 +155,7 @@ body{
 
 .drop-list > select{
     width: 50%;
+    background-color: antiquewhite;
 }
 
 .range > p {

@@ -24,14 +24,26 @@
 	            $scope.errors = [];
 	            $scope.msgs = [];
 	            $scope.productsName = "";
+	            $scope.productsNameElem = {};
+	            $scope.productsNameArray = [];
+	            $scope.productsNameString = "";
 	            $scope.errors.splice(0, $scope.errors.length);
 	            $scope.msgs.splice(0, $scope.msgs.length);
 
-	            angular.forEach($scope.addCartProducts, function(product, key) {
-					$scope.productsName = $scope.productsName+" "+$scope.addCartProducts[key].title+"->"+$scope.addCartProducts[key].amount+" ;";
-				});
-	            
-	            $http.post('app/data/addProductsBought.php',{'ProductsName': $scope.productsName, 'TotalPrice': $scope.totalPrice}
+
+				 angular.forEach($scope.addCartProducts, function(product, key) {
+				 	$scope.productsNameElem = {
+				 		'name' 	: $scope.productsName,
+				 		'type'	: $scope.addCartProducts[key].title,
+				 		'amount': $scope.addCartProducts[key].amount,
+				 	};
+				 	$scope.productsNameArray.push($scope.productsNameElem);
+				 });
+
+	            $scope.productsNameString = angular.toJson($scope.productsNameArray);
+	            debugger
+
+	            $http.post('app/data/addProductsBought.php',{'ProductsName': $scope.productsNameString, 'TotalPrice': $scope.totalPrice}
 	            ).success(function(data, status, headers, config) {
 	                if (data.msg != '')
 	                {
