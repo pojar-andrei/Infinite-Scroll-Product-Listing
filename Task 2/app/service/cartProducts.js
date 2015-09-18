@@ -7,7 +7,7 @@
 
 	    function cartProducts ( $http ) {
 			var cartProducts = this;
-			cartProducts.products = [];
+			cartProducts.products = {};
 
 			cartProducts.setAddCart = function( data ){
 				var added = 0;
@@ -29,20 +29,22 @@
 				return cartProducts.products;
 			}
 
-			cartProducts.setAddCartCookies = function( data ){
+			cartProducts.setAddCartStorage = function( data ){
 				cartProducts.products = data;
 			}
 
 			cartProducts.deleteCartItem = function (data){
-				console.log(data);
 				var poz = 0;
-				// angular.forEach($scope.addCartProducts, function(product, key) {
-				//  	if(product.title = data.title){
-				//  		cartProducts.products.splice(data,1);
-				//  	}
-				//  });
-				// console.log(data);
-				
+				angular.forEach(cartProducts.products, function(product, key) {
+				 	if(product.title == data.title){
+				 		if (product.amount > 1) {
+				 			product.amount -= 1;
+				 		}else{
+				 			cartProducts.products.splice(poz,1);
+				 		}
+				 	}
+				 	poz++;
+				 });
 			}		
 
 			cartProducts.getTotalPrice = function(){

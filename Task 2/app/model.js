@@ -1,4 +1,4 @@
 (function(){
-	var app = angular.module("Myapp",['ngRoute','ngCookies',]);
+	var app = angular.module("Myapp",['ngStorage']);
 })();
 
