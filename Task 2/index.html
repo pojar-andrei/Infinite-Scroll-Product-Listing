@@ -6,6 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/angular-range-slider.css">
 		<link rel="stylesheet" type="text/css" href="app/range_slider/range_slider.css">
 		<script type="text/javascript" src="libs/angular.js"></script>
+		<script type="text/javascript" src="libs/angular-ui-router.js"></script>
 		<script type="text/javascript" src="libs/jquery-2.1.4.min.js"></script>
 		<script type="text/javascript" src="libs/ngStorage.js"></script>
 		<script type="text/javascript" src="app/data/menu.js"></script>
@@ -28,77 +29,13 @@
 			<div class="container">
 				<div class="menu">
 					<ul class="menu_list" ng-controller="getMenu">
-						<li class="menu_item" ng-repeat="menu in menus"><a href="{{menu.url}}">{{menu.name}}</a></li>
+						<li class="menu_item" ng-repeat="menu in menus"><a ui-sref="{{menu.url}}">{{menu.name}}</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 
-		<div class="backgroud-light">
-			<div class="container">
-				<div class="l-infinitApp">
-					<div class="gallery" ng-controller="galleryCtrl"  >
-						<div scrolly="showMore()">
-							<div class="gallery_item" ng-model="filteredCategory" ng-repeat=" product in ( filtredProducts = ( (vm.gallery | filter : filteredCategory ) | filterPrice : vm.gallery.priceMin : vm.gallery.priceMax ) )">
-								<img src="{{product.img_url}}">
-								<h3>{{product.title}}</h3>
-								<div >
-									<p>{{product.price}}$</p>
-									<div class="addProduct" ng-click="productAdd(product)">
-										Add to Cart
-									</div>
-								</div>
-							</div>
-							<div class="gallery_loading" ng-hide="vm.dataLoading">
-								<p>Loding</p>
-								<img src="assets/img/loading.png">
-							</div>
-						</div>
-					</div>
-					<div class="fnc">
-						<div class="fnc_filter">
-							<h3>Filter</h3>
-							<div class="drop-list" ng-controller="categoryCtrl">
-								<p class="drop-list_title">Category : </p>
-								<select ng-model="categorySelected">  
-									<option value="{{category}}" ng-repeat="category in vm.categorys">{{category}}</option>
-								</select>
-							</div>
-							<div class="range" ng-controller="rangeCtrl">
-								<p> Price Range:</p>
-								<range>
-								    <range-main-bar floor="0" celling="1000">
-								    	<range-elastic-bar ng-model-low="{{lowerValue}}" ng-model-high="{{upperValue}}">
-							        		<range-min-circle class="circleShape">
-							        			<div class="minValue" ng-show="vm.isClickedMinCircle">{{vm.lowerValue | number:0 }}$</div>
-							        		</range-min-circle>
-								        	<range-max-circle class="circleShape">
-								        		<div class="maxValue" ng-show="vm.isClickedMaxCircle">{{vm.upperValue | number:0 }}$</div>
-								        	</range-max-circle> 
-								    	</range-elastic-bar>
-								    </range-main-bar>
-								</range>
-							</div>
-						</div>
-						<div class="fnc_addCart" ng-controller="cartCtrl">
-							<h3>Add Cart</h3>
-							<div class="product-item" ng-repeat="addCartProduct in addCartProducts">
-								<p class="product-item_title">{{addCartProduct.title}}</p>
-								<p class="product-item_amount">x {{addCartProduct.amount}}</p>
-								<p class="product-item_price">{{addCartProduct.price}}</p>
-								<img class="product-item_close" ng-click="deleteProduct(addCartProduct)" src="assets/img/delete.png">
-							</div>
-							<hr>
-							<div>
-								<p>Total : {{totalPrice}}</p>
-							</div>
-							<div class="fnc_addCart_buy" ng-click="buyProducts()">
-								Buy
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<div ui-view></div>
+
 	</body>
 </html>

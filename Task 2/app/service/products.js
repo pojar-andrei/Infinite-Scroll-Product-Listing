@@ -8,6 +8,7 @@
 	    function products ( $http ) {
 			var products = this;
 			products.currentProducts = [];
+			products.currentViewProduct = {};
 			products.priceMinMax = {
 				min: 0,
 				max: 1000,
@@ -23,6 +24,14 @@
 			products.setproducts = function( data ){
 				products.currentProducts = data;
 				products.setPriceMinMax(products.currentProducts);
+			}
+
+			products.setViewProduct = function (data){
+				products.currentViewProduct = data;
+			}
+
+			products.getViewProduct = function (){
+				return products.currentViewProduct;
 			}
 
 			products.getProductsDb = function( limit ){

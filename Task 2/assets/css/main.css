@@ -141,6 +141,27 @@ body{
     height: 70px;
 }
 
+.viewProduct_img{
+    display: inline-block;
+}
+
+.viewProduct_info{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.viewProduct_title{
+
+}
+
+.viewProduct_category{
+    text-align: right;
+}
+
+.viewProduct_price{
+
+}
+
 .fnc{
     display: inline-block;
     width: 28%;

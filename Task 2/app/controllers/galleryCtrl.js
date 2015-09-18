@@ -11,18 +11,23 @@
 			vm.limit = 0;
 		   	vm.promise = products.getProductsDb(vm.limit);
 		   	vm.dataLoading = false;
-		   	vm.gallery = [];
-		   	vm.gallery.filteredCategory = '';		   	
+		   	if ((products.getproducts()).length == 0) {
+			   	vm.gallery = [];
+			   	vm.gallery.filteredCategory = '';		   	
 
-			vm.promise.then(
-		        function(response) { 
-		            vm.gallery = response.data;
-		            products.setproducts(vm.gallery);
-		            $rootScope.$broadcast("setCategorys",vm.gallery);
-		        },
-		        function(errorResponse) {
-		            $log.error('failure loading product', errorResponse);
-	        });
+				vm.promise.then(
+			        function(response) { 
+			            vm.gallery = response.data;
+			            products.setproducts(vm.gallery);
+			            $rootScope.$broadcast("setCategorys",vm.gallery);
+			        },
+			        function(errorResponse) {
+			            $log.error('failure loading product', errorResponse);
+		        });
+
+		    }else{
+		    	vm.gallery = products.getproducts();
+		    }
 			
 			$scope.$watch(function(){
 			    return categoryService.categoryCurrent;
@@ -41,6 +46,10 @@
 
 			    $scope.filteredCategory = vm.gallery.filteredCategory;
 			});
+
+			$scope.viewProduct = function (product){
+				products.setViewProduct(product);
+			}
 
 			$scope.productAdd = function (product){
 				$rootScope.$broadcast("addProduct",product);

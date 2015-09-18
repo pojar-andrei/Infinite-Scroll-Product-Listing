@@ -1,16 +1,16 @@
 (function(){
 	window.menus = [
 		{	"name":'Home',
-			"url":"#"
+			"url":"home"
 		},
-		{	"name":'Product',
-			"url":"#"
+		{	"name":'Products',
+			"url":"products"
 		},
 		{	"name":'About',
-			"url":"#"
+			"url":"about"
 		},
 		{	"name":'Contact',
-			"url":"#"
+			"url":"contact"
 		},
 	];
 }());
