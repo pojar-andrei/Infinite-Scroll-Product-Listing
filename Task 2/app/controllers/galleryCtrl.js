@@ -6,6 +6,7 @@
 	    .controller('galleryCtrl', galleryCtrl)
 
 	    function galleryCtrl ( $log , $scope, $rootScope, products , categoryService ) {
+	    	
 			var vm = $scope.vm = {};
 			vm.limit = 0;
 		   	vm.promise = products.getProductsDb(vm.limit);

@@ -55,6 +55,10 @@ body{
 }
 
 .gallery{
+    -webkit-user-select: none;
+     -moz-user-select: -moz-none;
+      -ms-user-select: none;
+          user-select: none;
     position: relative;
     display: inline-block;
     width: 70%;

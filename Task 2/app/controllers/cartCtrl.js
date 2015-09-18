@@ -5,19 +5,29 @@
 	    .module('Myapp')
 	    .controller('cartCtrl', cartCtrl)
 
-	    function cartCtrl ( $scope , $http , cartProducts ) {
+	    function cartCtrl ( $scope , $http , $cookieStore , cartProducts ) {
+
+	    	$scope.timeout;
+    		$scope.cartProductsCookie;
+
+    		if ($cookieStore.get('cartProducts')) {
+    			cartProducts.setAddCartCookies( $cookieStore.get('cartProducts') );
+    		};    		
 			$scope.addCartProducts = cartProducts.getAddCart();
 			$scope.totalPrice = cartProducts.getTotalPrice();
 
 			$scope.$on("addProduct", function (event, args) {
 				cartProducts.setAddCart( args );
+				$scope.addCartProducts = cartProducts.getAddCart();
 				$scope.totalPrice = cartProducts.getTotalPrice();
+				$cookieStore.put('cartProducts', $scope.addCartProducts);
 			});
 
 			$scope.deleteProduct = function ( data ){
 				cartProducts.deleteCartItem( data );
 				$scope.addCartProducts = cartProducts.getAddCart();
 				$scope.totalPrice = cartProducts.getTotalPrice();
+				$cookieStore.put('cartProducts', $scope.addCartProducts);
 			};
 
 			$scope.buyProducts = function(){
@@ -33,7 +43,7 @@
 
 				 angular.forEach($scope.addCartProducts, function(product, key) {
 				 	$scope.productsNameElem = {
-				 		'name' 	: $scope.productsName,
+				 		'category' 	: $scope.products.category,
 				 		'type'	: $scope.addCartProducts[key].title,
 				 		'amount': $scope.addCartProducts[key].amount,
 				 	};
@@ -41,7 +51,6 @@
 				 });
 
 	            $scope.productsNameString = angular.toJson($scope.productsNameArray);
-	            debugger
 
 	            $http.post('app/data/addProductsBought.php',{'ProductsName': $scope.productsNameString, 'TotalPrice': $scope.totalPrice}
 	            ).success(function(data, status, headers, config) {
@@ -60,5 +69,6 @@
 	            $scope.addCartProducts = cartProducts.getAddCart();
 	            $scope.totalPrice = cartProducts.getTotalPrice();
 			};
+
 		};
 })();

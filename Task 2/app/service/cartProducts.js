@@ -29,8 +29,20 @@
 				return cartProducts.products;
 			}
 
+			cartProducts.setAddCartCookies = function( data ){
+				cartProducts.products = data;
+			}
+
 			cartProducts.deleteCartItem = function (data){
-				cartProducts.products.splice(data, 1);
+				console.log(data);
+				var poz = 0;
+				// angular.forEach($scope.addCartProducts, function(product, key) {
+				//  	if(product.title = data.title){
+				//  		cartProducts.products.splice(data,1);
+				//  	}
+				//  });
+				// console.log(data);
+				
 			}		
 
 			cartProducts.getTotalPrice = function(){

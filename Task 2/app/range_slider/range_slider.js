@@ -21,31 +21,48 @@
 	        	require: ['rangeMainBar',],
 	        	controller: function ($scope){
 	        		var vm = $scope.vm ;
+	        		$scope.limit = 0;
 
 	        		this.rightCircleMove = function(px){
-
-	        			vm.elasticBarPadd += px;
-
-	        			vm.upperValue = (vm.elasticBarMargin + vm.elasticBarPadd) / vm.valueForPx;
-	        			$scope.$apply();
-	        			vm.elasticBarElem.css({	
-	        				padding_right : vm.elasticBarPadd+'px',	
-	        			});
+	        			if ( px < 0 ){ 
+	        				$scope.limit = vm.elasticBarMargin + 20;
+	        			}else{
+	        				$scope.limit = vm.mainBarWidth ;
+	        			}
+	        			
+	        			if( (px=this.chekIfOverflow (px , $scope.limit , (vm.elasticBarMargin + vm.elasticBarPadd) ) ) ){
+	        				
+	        				vm.elasticBarPadd += px;
+		        			vm.upperValue = (vm.elasticBarMargin + vm.elasticBarPadd) / vm.valueForPx;
+		        			$scope.$apply();
+		        			vm.elasticBarElem.css({	
+		        				padding_right : vm.elasticBarPadd+'px',	
+		        			});
+		        		}
 	        		};
 
 	        		this.leftCircleMove = function(px){
-	    
-	        			vm.elasticBarPadd -= px ;
-	        			vm.elasticBarMargin += px;
+	    				if ( px < 0 ){ 
+	        				$scope.limit = 1 ;
+	        			}else{
+	        				$scope.limit = ((vm.elasticBarMargin + vm.elasticBarPadd) - 20);
+	        			}
 
-	        			vm.lowerValue = vm.elasticBarMargin / vm.valueForPx;
-	        			vm.upperValue = (vm.elasticBarMargin + vm.elasticBarPadd) / vm.valueForPx;
-	        			
-	        			$scope.$apply();
-	        			vm.elasticBarElem.css({	
-	        				margin_left		: vm.elasticBarMargin+'px',
-	        				padding_right 	: vm.elasticBarPadd+'px',	
-	        			});
+	        			if( (px=this.chekIfOverflow (px , $scope.limit , vm.elasticBarMargin ) ) ){
+		        			
+		        			vm.elasticBarPadd -= px ;
+		        			vm.elasticBarMargin += px;
+
+		        			vm.lowerValue = vm.elasticBarMargin / vm.valueForPx;
+		        			vm.upperValue = (vm.elasticBarMargin + vm.elasticBarPadd) / vm.valueForPx;
+		        			
+		        			$scope.$apply();
+		        			vm.elasticBarElem.css({	
+		        				margin_left		: vm.elasticBarMargin+'px',
+		        				padding_right 	: vm.elasticBarPadd+'px',	
+		        			});
+
+	        			}
 	        		};
 
 	        		this.setElasticBar = function( val ){
@@ -65,6 +82,27 @@
 	        			});
 	        			
 	        		}
+
+	        		this.chekIfOverflow = function ( nrOfSteps , limit , currentPoz){
+        				var answer = false;
+        				if(nrOfSteps != 0){
+	        				if( nrOfSteps < 0 ){
+		        				if( (currentPoz + nrOfSteps) > limit + 1){
+		        					answer = nrOfSteps ;
+		        				}else{
+		        					answer = -Math.abs(currentPoz - limit + 1);
+		        				}
+		        			}else{
+		        				if( (currentPoz + nrOfSteps) <  limit -1 ){
+		        					answer = nrOfSteps;
+		        				}else{
+		        					answer = Math.abs(limit - currentPoz - 1);
+		        				}
+		        			}
+		        		}
+	        			return answer;
+	        		}
+
 	        	},
 
 	        	link: function(scope, element, attrs , mainBarCtrl ){
@@ -75,16 +113,19 @@
         			vm.celling = parseInt(attrs.celling,10);
 
         			$document.bind('mousemove',function(ev){
-        				if(vm.isClickedMaxCircle == true){
-        					if( ( ( vm.upperValue < vm.celling -1) || ( ev.movementX < 0 ) ) && ( vm.lowerValue < vm.upperValue ) ){
-        						mainBarCtrl[0].rightCircleMove(ev.movementX);
-        					}
-        				}
-        				if(vm.isClickedMinCircle == true){
-        					if( ( ( vm.lowerValue > vm.floor+1) || (  ev.movementX > 0) ) && ( vm.lowerValue < vm.upperValue ) ){
-        						mainBarCtrl[0].leftCircleMove(ev.movementX);
-        					}
-        				}
+        				
+	        				if(vm.isClickedMaxCircle == true){
+	        					if( ( ( vm.upperValue < vm.celling -1) || ( ev.movementX < 0 ) ) && ( ( vm.lowerValue + 150 < vm.upperValue ) ||  ( ev.movementX > 0 ) ) ) {
+	        						
+	        						mainBarCtrl[0].rightCircleMove(ev.movementX);
+	        					}
+	        				}
+	        				if(vm.isClickedMinCircle == true){
+	        					if( ( ( vm.lowerValue > vm.floor+1) || (  ev.movementX > 0) ) && ( ( vm.lowerValue < vm.upperValue - 150 ) || ( ev.movementX < 0 ) ) ){
+	        						mainBarCtrl[0].leftCircleMove(ev.movementX);
+	        					}
+	        				}
+
         			});
 
         			$document.bind('mouseup',function(ev){
