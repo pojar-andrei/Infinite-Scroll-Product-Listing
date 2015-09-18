@@ -7,7 +7,7 @@
 
 	    function cartProducts ( $http ) {
 			var cartProducts = this;
-			cartProducts.products = {};
+			cartProducts.products = [];
 
 			cartProducts.setAddCart = function( data ){
 				var added = 0;

@@ -8,13 +8,15 @@
 	    function cartCtrl ( $scope , $http , $localStorage , cartProducts ) {
 
 	    	$scope.timeout;
-	    	$localStorage.storeCartProduct = [];	
-	    	if($localStorage.storeCartProduct){
+	    	$scope.addCartProducts = [];
+
+	    	if($localStorage.storeCartProduct.length){
 				$scope.addCartProducts = $localStorage.storeCartProduct;
 				cartProducts.setAddCartStorage($scope.addCartProducts);
 	    	}else{
 	    		$scope.addCartProducts = cartProducts.getAddCart();
 	    	}
+	    	
 			$scope.totalPrice = cartProducts.getTotalPrice();
 
 			$scope.$on("addProduct", function (event, args) {				
